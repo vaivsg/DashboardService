@@ -133,13 +133,33 @@
 
     <div class="col-sm-6 col-md-6 col-g-6">
       HTTP RESPONSE
+      <canvas id="scatterchart" style="display: block"></canvas>
+    </div>
+
+    <div class="col-sm-6 col-md-6 col-g-6">
+      HTTP RESPONSE
       <canvas id="piechart" style="display: block"></canvas>
+    </div>
+
+    <div class="col-sm-6 col-md-6 col-g-6">
+      HTTP RESPONSE
+      <canvas id="radarchart" style="display: block"></canvas>
+    </div>
+
+    <div class="col-sm-6 col-md-6 col-g-6">
+      HTTP RESPONSE
+      <canvas id="doughnutchart" style="display: block"></canvas>
+    </div>
+
+    <div class="col-sm-6 col-md-6 col-g-6">
+      HTTP RESPONSE
+      <canvas id="polarAreachart" style="display: block"></canvas>
     </div>
 
     <div class="col-sm-6 col-md-6 col-lg-12" style="margin-top: 50px">
       <h5 class="pull-left">HTTP Traces</h5>
       <button
-      (click)="exportTableToExcel()"
+        (click)="exportTableToExcel()"
         type="button"
         class="btn btn-primary btn-sm pull-right"
         style="margin-bottom: 10px"

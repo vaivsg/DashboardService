@@ -24,8 +24,8 @@ export class AppComponent implements OnInit {
   public http500Traces: any[] = [];
   public httpDefaultTraces: any[] = [];
   public timestamp: number;
-  public pageSize=10;
-  public page=1;
+  public pageSize = 10;
+  public page = 1;
 
   constructor(private dashboardService: DashboardService) {}
 
@@ -43,6 +43,10 @@ export class AppComponent implements OnInit {
         this.processTraces(response.traces);
         this.initializeBarChart();
         this.initializePieChart();
+        this.initializeRadarChart();
+        this.initializeScatterChart();
+        this.initializeDoughnutChart();
+        this.initializePolarAreaChart();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -176,6 +180,49 @@ export class AppComponent implements OnInit {
     });
   }
 
+  private initializePolarAreaChart(): Chart<'polarArea', number[], string> {
+    const polarAreaChartElement = document.getElementById(
+      'polarAreachart'
+    ) as HTMLCanvasElement;
+    return new Chart(polarAreaChartElement, {
+      type: 'polarArea',
+      data: {
+        labels: ['200', '404', '400', '500'],
+        datasets: [
+          {
+            label: `Last 100 Requests as of ${this.formatDate(new Date())}`,
+            data: [
+              this.http200Traces.length,
+              this.http404Traces.length,
+              this.http400Traces.length,
+              this.http500Traces.length,
+            ],
+            backgroundColor: [
+              'rgba(40, 167, 69, 0.2)',
+              'rgba(0, 123, 255, 0.2)',
+              'rgba(253, 126, 20, 0.2)',
+              'rgba(220, 53, 69, 0.2)',
+            ],
+            borderColor: [
+              'rgba(40, 167, 69, 1)',
+              'rgba(0, 123, 255, 1)',
+              'rgba(253, 126, 20, 1)',
+              'rgba(220, 53, 69, 1)',
+            ],
+            borderWidth: 3,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  }
+
   private initializePieChart(): Chart<'pie', number[], string> {
     const pieChartElement = document.getElementById(
       'piechart'
@@ -212,9 +259,139 @@ export class AppComponent implements OnInit {
       options: {
         plugins: {
           title: {
-                display: true,
-                text: `Last 100 Requests as of ${this.formatDate(new Date())}`
-            },
+            display: true,
+            text: `Last 100 Requests as of ${this.formatDate(new Date())}`,
+          },
+          legend: {
+            display: true,
+          },
+        },
+      },
+    });
+  }
+
+  private initializeRadarChart(): Chart<'radar', number[], string> {
+    const radarChartElement = document.getElementById(
+      'radarchart'
+    ) as HTMLCanvasElement;
+    return new Chart(radarChartElement, {
+      type: 'radar',
+      data: {
+        labels: ['200', '404', '400', '500'],
+        datasets: [
+          {
+            label: 'BarChart',
+            data: [
+              this.http200Traces.length,
+              this.http404Traces.length,
+              this.http400Traces.length,
+              this.http500Traces.length,
+            ],
+            backgroundColor: [
+              'rgba(40, 167, 69, 0.2)',
+              'rgba(0, 123, 255, 0.2)',
+              'rgba(253, 126, 20, 0.2)',
+              'rgba(220, 53, 69, 0.2)',
+            ],
+            borderColor: [
+              'rgba(40, 167, 69, 1)',
+              'rgba(0, 123, 255, 1)',
+              'rgba(253, 126, 20, 1)',
+              'rgba(220, 53, 69, 1)',
+            ],
+            borderWidth: 3,
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: `Last 100 Requests as of ${this.formatDate(new Date())}`,
+          },
+          legend: {
+            display: true,
+          },
+        },
+      },
+    });
+  }
+
+  private initializeDoughnutChart(): Chart<'doughnut', number[], string> {
+    const doughnutChartElement = document.getElementById(
+      'doughnutchart'
+    ) as HTMLCanvasElement;
+    return new Chart(doughnutChartElement, {
+      type: 'doughnut',
+      data: {
+        labels: ['200', '404', '400', '500'],
+        datasets: [
+          {
+            label: 'BarChart',
+            data: [
+              this.http200Traces.length,
+              this.http404Traces.length,
+              this.http400Traces.length,
+              this.http500Traces.length,
+            ],
+            backgroundColor: [
+              'rgba(40, 167, 69, 0.2)',
+              'rgba(0, 123, 255, 0.2)',
+              'rgba(253, 126, 20, 0.2)',
+              'rgba(220, 53, 69, 0.2)',
+            ],
+            borderColor: [
+              'rgba(40, 167, 69, 1)',
+              'rgba(0, 123, 255, 1)',
+              'rgba(253, 126, 20, 1)',
+              'rgba(220, 53, 69, 1)',
+            ],
+            borderWidth: 3,
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: `Last 100 Requests as of ${this.formatDate(new Date())}`,
+          },
+          legend: {
+            display: true,
+          },
+        },
+      },
+    });
+  }
+
+  private initializeScatterChart(): Chart<'scatter', number[], string> {
+    const scatterChartElement = document.getElementById(
+      'scatterchart'
+    ) as HTMLCanvasElement;
+    return new Chart(scatterChartElement, {
+      type: 'scatter',
+      data: {
+        labels: ['200', '404', '400', '500'],
+        datasets: [
+          {
+            label: 'BarChart',
+            data: [
+              this.http200Traces.length,
+              this.http404Traces.length,
+              this.http400Traces.length,
+              this.http500Traces.length,
+            ],
+
+            borderWidth: 3,
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: `Last 100 Requests as of ${this.formatDate(new Date())}`,
+          },
           legend: {
             display: true,
           },
@@ -228,14 +405,14 @@ export class AppComponent implements OnInit {
     document.getElementById('trace-modal')?.click();
   }
 
-  public exportTableToExcel(): void{
-    const downloadLink=document.createElement('a');
-    const dataType='application/vnd.ms-excel';
-    const table=document.getElementById('httptrace-table');
-    const tableHtml= table?.outerHTML.replace(/ /g,'%20');
+  public exportTableToExcel(): void {
+    const downloadLink = document.createElement('a');
+    const dataType = 'application/vnd.ms-excel';
+    const table = document.getElementById('httptrace-table');
+    const tableHtml = table?.outerHTML.replace(/ /g, '%20');
     document.body.appendChild(downloadLink);
-    downloadLink.href='data:'+dataType+' '+tableHtml;
-    downloadLink.download='httptrace.xls';
+    downloadLink.href = 'data:' + dataType + ' ' + tableHtml;
+    downloadLink.download = 'httptrace.xls';
     downloadLink.click();
   }
 
@@ -271,11 +448,11 @@ export class AppComponent implements OnInit {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
-  private formatDate(date:Date):String{
+  private formatDate(date: Date): String {
     const dd = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
-    const mm = date.getMonth() < 10 ? `0${date.getMonth()}` : `${date.getMonth()}`;
-    const year=date.getFullYear();
+    const mm =
+      date.getMonth() < 10 ? `0${date.getMonth()}` : `${date.getMonth()}`;
+    const year = date.getFullYear();
     return `${mm}/${dd}/${year}`;
   }
-
 }
