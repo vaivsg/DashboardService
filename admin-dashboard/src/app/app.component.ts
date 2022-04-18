@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
         this.initializeBarChart();
         this.initializePieChart();
         this.initializeRadarChart();
-        this.initializeScatterChart();
+        this.initializeLineChart();
         this.initializeDoughnutChart();
         this.initializePolarAreaChart();
       },
@@ -233,7 +233,7 @@ export class AppComponent implements OnInit {
         labels: ['200', '404', '400', '500'],
         datasets: [
           {
-            label: 'BarChart',
+            label: 'pieChart',
             data: [
               this.http200Traces.length,
               this.http404Traces.length,
@@ -280,7 +280,7 @@ export class AppComponent implements OnInit {
         labels: ['200', '404', '400', '500'],
         datasets: [
           {
-            label: 'BarChart',
+            label: 'radarChart',
             data: [
               this.http200Traces.length,
               this.http404Traces.length,
@@ -327,7 +327,7 @@ export class AppComponent implements OnInit {
         labels: ['200', '404', '400', '500'],
         datasets: [
           {
-            label: 'BarChart',
+            label: 'doughnutChart',
             data: [
               this.http200Traces.length,
               this.http404Traces.length,
@@ -364,24 +364,23 @@ export class AppComponent implements OnInit {
     });
   }
 
-  private initializeScatterChart(): Chart<'scatter', number[], string> {
-    const scatterChartElement = document.getElementById(
-      'scatterchart'
+  private initializeLineChart(): Chart<'line', number[], string> {
+    const lineChartElement = document.getElementById(
+      'linechart'
     ) as HTMLCanvasElement;
-    return new Chart(scatterChartElement, {
-      type: 'scatter',
+    return new Chart(lineChartElement, {
+      type: 'line',
       data: {
         labels: ['200', '404', '400', '500'],
         datasets: [
           {
-            label: 'BarChart',
+            label: 'LineChart',
             data: [
               this.http200Traces.length,
               this.http404Traces.length,
               this.http400Traces.length,
               this.http500Traces.length,
             ],
-
             borderWidth: 3,
           },
         ],
